@@ -230,7 +230,7 @@ body[data-lang="ta"] .cp-q{font-family:'Noto Sans Tamil',sans-serif!important;}
 .below-chat{display:none;}
 .below-chat.revealed{display:block;}
 /* Lock page scroll while chat is running */
-body.chat-lock{overflow:hidden;height:100vh;}
+body.chat-lock{overflow:hidden;position:fixed;width:100%;}
 .bn-strip{background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.3);border-radius:14px;padding:14px 16px;max-width:430px;margin:0 auto 18px;text-align:center;}
 .bn-badge{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;animation:pulse 1.8s infinite;margin-bottom:6px;}
 .bn-text{font-size:13px;color:var(--txt-m);line-height:1.6;}
@@ -324,7 +324,7 @@ body.chat-lock{overflow:hidden;height:100vh;}
     </div>
     <!-- Continue button sits OUTSIDE wa-wrap, below the chat box -->
     <div class="cont-wrap" id="cont-wrap" style="max-width:430px;margin:0 auto;width:100%;">
-      <button class="gold-btn" id="cont-btn" onclick="revealAll()" disabled>
+      <button class="gold-btn" id="cont-btn" onclick="revealAll()">
         <span class="en-only">Continue →</span>
         <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">தொடர்க →</span>
       </button>
@@ -562,10 +562,17 @@ function mkConfetti(){
   particles=[];
   const cx=W/2, cy=H*0.55;
 
+  // Detect mobile — smaller screen = reduce speed so it feels same pace as desktop
+  const isMobile = W < 768;
+  const speedScale  = isMobile ? 0.52 : 1.0;   // slower launch on mobile
+  const gravityScale= isMobile ? 0.38 : 1.0;   // floats longer on mobile
+  const dragVal     = isMobile ? 0.982 : 0.992; // more air resistance on mobile
+  const fadeRate    = isMobile ? 0.0025 : 0.004;// fades slower on mobile
+
   // Central burst — 220 pieces shooting upward
   for(let i=0;i<220;i++){
     const angle=(Math.random()*Math.PI*2);
-    const speed=Math.random()*28+8;
+    const speed=(Math.random()*28+8)*speedScale;
     particles.push({
       x:cx+((Math.random()-.5)*120),
       y:cy+((Math.random()-.5)*80),
@@ -577,8 +584,9 @@ function mkConfetti(){
       rv:(Math.random()-.5)*14,
       shape:['rect','rect','circle','ribbon'][Math.floor(Math.random()*4)],
       alpha:1,
-      gravity:0.28+Math.random()*0.18,
-      drag:0.992,
+      gravity:(0.28+Math.random()*0.18)*gravityScale,
+      drag:dragVal,
+      fadeRate,
       w:Math.random()*14+5,
       h:Math.random()*5+2
     });
@@ -587,7 +595,7 @@ function mkConfetti(){
   // Left corner burst — 80 pieces
   for(let i=0;i<80;i++){
     const angle=-(Math.random()*Math.PI*0.6)-(Math.PI*0.1);
-    const speed=Math.random()*24+10;
+    const speed=(Math.random()*24+10)*speedScale;
     particles.push({
       x:Math.random()*60,y:H-(Math.random()*60),
       vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,
@@ -595,7 +603,9 @@ function mkConfetti(){
       color:colors[Math.floor(Math.random()*colors.length)],
       rot:Math.random()*360,rv:(Math.random()-.5)*12,
       shape:Math.random()>.4?'rect':'circle',
-      alpha:1,gravity:0.26+Math.random()*0.15,drag:0.994,
+      alpha:1,
+      gravity:(0.26+Math.random()*0.15)*gravityScale,
+      drag:dragVal,fadeRate,
       w:Math.random()*12+4,h:Math.random()*4+2
     });
   }
@@ -603,7 +613,7 @@ function mkConfetti(){
   // Right corner burst — 80 pieces
   for(let i=0;i<80;i++){
     const angle=-(Math.random()*Math.PI*0.6)-(Math.PI*0.3);
-    const speed=Math.random()*24+10;
+    const speed=(Math.random()*24+10)*speedScale;
     particles.push({
       x:W-(Math.random()*60),y:H-(Math.random()*60),
       vx:-Math.abs(Math.cos(angle)*speed),vy:Math.sin(angle)*speed,
@@ -611,7 +621,9 @@ function mkConfetti(){
       color:colors[Math.floor(Math.random()*colors.length)],
       rot:Math.random()*360,rv:(Math.random()-.5)*12,
       shape:Math.random()>.4?'rect':'circle',
-      alpha:1,gravity:0.26+Math.random()*0.15,drag:0.994,
+      alpha:1,
+      gravity:(0.26+Math.random()*0.15)*gravityScale,
+      drag:dragVal,fadeRate,
       w:Math.random()*12+4,h:Math.random()*4+2
     });
   }
@@ -644,9 +656,9 @@ function animConfetti(){
     p.x+=p.vx; p.y+=p.vy;
     p.vy+=p.gravity; p.vx*=p.drag; p.vy*=p.drag;
     p.rot+=p.rv;
-    // slow fade — linger in air
-    if(p.y>H*0.2) p.alpha-=0.004;
-    else p.alpha-=0.001;
+    // use per-particle fadeRate (slower on mobile)
+    if(p.y>H*0.2) p.alpha-=p.fadeRate;
+    else p.alpha-=p.fadeRate*0.4;
     if(p.alpha>0){alive=true; drawPiece(p);}
   });
   if(alive) animId=requestAnimationFrame(animConfetti);
@@ -669,35 +681,54 @@ function enterSite(){
   fireConfetti();
   window.scrollTo(0,0);
 
-  // Step 2: Wait 750ms so confetti fills the screen before curtain starts
+  // Mobile needs more time to enjoy the blast (particles slower)
+  const isMobile = window.innerWidth < 768;
+  const curtainDelay = isMobile ? 1000 : 750;
+  const chatDelay    = isMobile ? 2800 : 2400;
+
+  // Step 2: Wait so confetti fills the screen before curtain starts
   setTimeout(()=>{
     document.getElementById('landing').classList.add('out');
     document.getElementById('main').classList.add('on');
     document.getElementById('nav-dots').style.display='flex';
-  }, 750);
+  }, curtainDelay);
 
-  // Step 3: After curtain fully slides away (750 + 1600ms), start chat
+  // Step 3: After curtain fully slides away, start chat
   setTimeout(()=>{
     document.getElementById('landing').style.display='none';
     window.scrollTo(0,0);
     document.body.classList.add('chat-lock');
     startChat();
     initScrollReveal();
-  }, 2400);
+  }, chatDelay);
 }
 
 // ══════════════════════════════════════════
 //  REVEAL ALL SECTIONS + SCROLL TO EVENTS
 // ══════════════════════════════════════════
 function revealAll(){
+  // ALWAYS unlock scroll first — whether chat finished or user skipped early
+  document.body.classList.remove('chat-lock');
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width    = '';
+
+  // Stop chat typing if still running
+  chatDone = true;
+  const typing = document.getElementById('typing');
+  if(typing) typing.classList.remove('on');
+
   // Reveal all hidden sections
   document.querySelectorAll('.below-chat').forEach(el=>{
     el.classList.add('revealed');
   });
-  // Instant jump — no smooth scroll — so chat is completely off screen
-  const evEl = document.getElementById('s-events');
-  const top = evEl.getBoundingClientRect().top + window.pageYOffset;
-  window.scrollTo({top: top, behavior: 'instant'});
+
+  // Small delay to let browser repaint after scroll unlock
+  setTimeout(()=>{
+    const evEl = document.getElementById('s-events');
+    const top  = evEl.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({top: top, behavior: 'instant'});
+  }, 30);
 }
 
 // ══════════════════════════════════════════
@@ -794,16 +825,15 @@ function startChat(){
   function showNext(){
     if(idx>=data.length){
       typing.classList.remove('on');
-      // Unlock page scroll
-      document.body.classList.remove('chat-lock');
-      // Enable the continue button with bounce
-      const btn = document.getElementById('cont-btn');
-      btn.disabled = false;
-      btn.classList.add('ready');
-      // Scroll button into view inside the chat box
-      setTimeout(()=>{
-        btn.scrollIntoView({behavior:'smooth', block:'nearest'});
-      }, 200);
+      // Only unlock scroll if user hasn't already clicked Continue
+      if(document.body.classList.contains('chat-lock')){
+        document.body.classList.remove('chat-lock');
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width    = '';
+      }
+      // Bounce button to signal chat is done
+      document.getElementById('cont-btn').classList.add('ready');
       chatDone=true;
       return;
     }
