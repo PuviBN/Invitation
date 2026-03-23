@@ -178,7 +178,7 @@ body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--txt
 .inv-divider{width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px auto;}
 .inv-ta{font-family:'Noto Sans Tamil','Latha',sans-serif;font-size:15.5px;line-height:2.1;color:var(--gold-p);position:relative;}
 .inv-en{font-size:15px;line-height:1.9;color:var(--txt-m);font-style:italic;position:relative;}
-.inv-names{font-family:'Cinzel',serif;font-size:20px;color:var(--gold-l);margin:16px 0;}
+.inv-names{font-family:'Cinzel',serif;font-size:clamp(17px,5vw,22px);color:var(--gold-l);margin:16px 0;text-align:center;line-height:1.5;}
 
 /* ── RSVP SECTION ── */
 #s-rsvp{padding:40px 20px 36px;text-align:center;background:radial-gradient(ellipse 70% 70% at 50% 40%,#0d2a18 0%,#050d08 100%);min-height:unset;}
@@ -477,7 +477,11 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
 
       <div class="inv-divider"></div>
 
-      <div class="inv-names">B.N. Puviarasu 💞 L. Bhoomika</div>
+      <div class="inv-names">
+        <div style="display:block;margin-bottom:6px;">B.N. Puviarasu</div>
+        <div style="display:block;font-size:22px;margin-bottom:6px;color:var(--rose,#f72585);">❤️</div>
+        <div style="display:block;">L. Boomika</div>
+      </div>
 
       <div class="inv-divider"></div>
 
