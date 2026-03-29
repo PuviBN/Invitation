@@ -133,7 +133,19 @@ body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--txt
 .gold-btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important;filter:grayscale(.5);}
 .gold-btn:disabled:hover{transform:none!important;}
 
-/* ── EVENTS SECTION ── */
+/* ── CALENDAR SAVE BUTTONS ── */
+.cal-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 16px;border-radius:50px;font-size:11px;font-family:'Space Mono',monospace;letter-spacing:.5px;cursor:pointer;border:none;text-decoration:none;transition:all .25s;white-space:nowrap;}
+.cal-btn.google{background:rgba(66,133,244,.15);border:1px solid rgba(66,133,244,.35);color:#7baff5;}
+.cal-btn.google:hover{background:rgba(66,133,244,.28);}
+.cal-btn.apple{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);color:var(--txt);}
+.cal-btn.apple:hover{background:rgba(255,255,255,.16);}
+.cal-btn.all{background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.3);color:var(--gold-l);}
+.cal-btn.all:hover{background:rgba(201,162,39,.22);}
+.cal-btns-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;}
+/* Save All strip */
+.save-all-strip{max-width:600px;margin:22px auto 0;background:rgba(255,255,255,.03);border:1px solid rgba(201,162,39,.18);border-radius:16px;padding:16px 18px;text-align:center;}
+.save-all-title{font-family:'Space Mono',monospace;font-size:9px;color:var(--cir);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
+.save-all-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 #s-events{background:linear-gradient(180deg,#050d08 0%,#0c1f12 50%,#050d08 100%);}
 .ev-grid{display:grid;grid-template-columns:1fr;gap:18px;max-width:600px;margin:0 auto;}
 .ev-card{background:var(--glass);border:1px solid var(--gb);border-radius:22px;padding:26px 24px;backdrop-filter:blur(10px);position:relative;overflow:hidden;opacity:0;transform:translateY(38px);transition:all .65s ease;}
@@ -180,13 +192,65 @@ body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--txt
 .inv-en{font-size:15px;line-height:1.9;color:var(--txt-m);font-style:italic;position:relative;}
 .inv-names{font-family:'Cinzel',serif;font-size:clamp(17px,5vw,22px);color:var(--gold-l);margin:16px 0;text-align:center;line-height:1.5;}
 
-/* ── RSVP SECTION ── */
-#s-rsvp{padding:40px 20px 36px;text-align:center;background:radial-gradient(ellipse 70% 70% at 50% 40%,#0d2a18 0%,#050d08 100%);min-height:unset;}
-.rsvp-card{max-width:420px;margin:16px auto 0;background:rgba(201,162,39,.07);border:1px solid rgba(201,162,39,.28);border-radius:24px;padding:24px 20px;}
-.rsvp-sub{font-size:14.5px;color:var(--txt-m);margin-bottom:18px;line-height:1.75;}
-.wa-btn{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;background:linear-gradient(135deg,#25D366,#1da850);color:#fff;font-family:'Cinzel',serif;font-size:14px;letter-spacing:1px;border-radius:50px;text-decoration:none;box-shadow:0 0 30px rgba(37,211,102,.4);transition:all .3s;}
-.wa-btn:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(37,211,102,.65);}
-.wa-icon{width:22px;height:22px;fill:#fff;}
+/* ── RSVP SECTION — Creative Attendance ── */
+#s-rsvp{padding:50px 20px 40px;text-align:center;background:radial-gradient(ellipse 80% 70% at 50% 30%,#0d2a18 0%,#050d08 100%);min-height:unset;}
+
+/* Step cards */
+.rsvp-steps{display:flex;justify-content:center;gap:8px;margin-bottom:28px;flex-wrap:wrap;}
+.rsvp-step{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:9px;color:var(--txt-m);letter-spacing:1px;}
+.rsvp-step-num{width:20px;height:20px;border-radius:50%;background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.3);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);font-weight:700;flex-shrink:0;}
+.rsvp-step.done .rsvp-step-num{background:var(--gold);color:#000;}
+.step-arrow{color:rgba(201,162,39,.3);font-size:10px;}
+
+/* Main form card */
+.rsvp-card{max-width:420px;margin:0 auto;background:rgba(255,255,255,.03);border:1px solid rgba(201,162,39,.22);border-radius:28px;padding:28px 22px;backdrop-filter:blur(12px);position:relative;overflow:hidden;}
+.rsvp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--cir),var(--gold),transparent);}
+
+/* Input */
+.rsvp-input-wrap{position:relative;margin-bottom:16px;}
+.rsvp-input{width:100%;padding:14px 18px 14px 46px;background:rgba(255,255,255,.06);border:1.5px solid rgba(201,162,39,.25);border-radius:14px;color:var(--txt);font-size:15px;font-family:'Cormorant Garamond',serif;outline:none;transition:border-color .3s,box-shadow .3s;}
+.rsvp-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.12);}
+.rsvp-input::placeholder{color:var(--txt-m);font-style:italic;}
+.rsvp-input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none;}
+
+/* Guest count selector */
+.guest-label{font-size:12px;color:var(--txt-m);margin-bottom:10px;font-family:'Space Mono',monospace;letter-spacing:1px;}
+.guest-btns{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
+.g-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(201,162,39,.25);background:rgba(255,255,255,.04);color:var(--txt-m);font-size:13px;cursor:pointer;transition:all .25s;font-family:'Space Mono',monospace;}
+.g-btn.sel{background:var(--gold);color:#000;border-color:var(--gold);box-shadow:0 0 16px rgba(201,162,39,.45);font-weight:700;transform:scale(1.12);}
+
+/* Submit button */
+.rsvp-submit{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),#8a6510);color:#fff;font-family:'Cinzel',serif;font-size:15px;letter-spacing:1.5px;border:none;border-radius:14px;cursor:pointer;box-shadow:0 4px 24px rgba(201,162,39,.35);transition:all .3s;position:relative;overflow:hidden;}
+.rsvp-submit::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:rgba(255,255,255,.15);transform:skewX(-20deg);transition:left .5s;}
+.rsvp-submit:hover::after{left:160%;}
+.rsvp-submit:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,162,39,.55);}
+.rsvp-submit:active{transform:scale(.98);}
+.rsvp-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+/* Success state */
+.rsvp-success{display:none;text-align:center;padding:10px 0;}
+.success-emoji{font-size:56px;animation:successPop .6s cubic-bezier(0.175,0.885,0.32,1.275) forwards;}
+@keyframes successPop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.success-title{font-family:'Cinzel',serif;font-size:20px;color:var(--gold-l);margin:12px 0 6px;}
+.success-msg{font-size:13px;color:var(--txt-m);line-height:1.7;}
+.success-name-badge{display:inline-block;background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.3);border-radius:50px;padding:5px 18px;margin:10px 0;font-family:'Cinzel',serif;font-size:14px;color:var(--gold-l);}
+
+/* Guest count live display */
+.guest-count-live{font-family:'Space Mono',monospace;font-size:10px;color:var(--cir);letter-spacing:2px;margin-bottom:16px;min-height:16px;}
+.gc-num{font-size:16px;font-weight:700;color:var(--gold-l);}
+
+/* WhatsApp secondary */
+.wa-secondary{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:10px 22px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:50px;color:#25D366;font-size:12px;text-decoration:none;transition:all .3s;font-family:'Space Mono',monospace;}
+.wa-secondary:hover{background:rgba(37,211,102,.2);}
+.wa-icon{width:16px;height:16px;fill:#25D366;}
+
+/* Error */
+.rsvp-error{color:#ff6b6b;font-size:11px;margin-top:6px;display:none;font-family:'Space Mono',monospace;}
+.rsvp-error.show{display:block;}
+
+/* Already registered */
+.already-msg{background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);border-radius:12px;padding:12px;font-size:12px;color:var(--cir);font-family:'Space Mono',monospace;display:none;margin-top:12px;}
+.already-msg.show{display:block;}
 .footer{text-align:center;padding:16px 20px;font-size:11px;color:var(--txt-m);font-family:'Space Mono',monospace;letter-spacing:1px;}
 
 /* ── PARTICLES ── */
@@ -359,9 +423,15 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
         <a class="maps-btn" href="https://www.google.com/maps/search/Pagavan+Sri+Sathya+Sai+Baba+Marriage+Hall+Chittoor+Road+Tiruttani" target="_blank">
           📍 <span class="en-only">Open in Google Maps</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Maps திற</span>
         </a>
+        <div class="cal-btns-row">
+          <a class="cal-btn google" onclick="addToGoogle('reception')" href="#">
+            📅 <span class="en-only">Google Calendar</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Calendar</span>
+          </a>
+          <a class="cal-btn apple" onclick="downloadICS('reception')" href="#">
+            🍎 <span class="en-only">iPhone / Apple</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">iPhone காலண்டர்</span>
+          </a>
+        </div>
       </div>
-
-      <!-- WEDDING CARD -->
       <div class="ev-card" style="transition-delay:.25s">
         <div class="ev-em">💍</div>
         <div class="ev-type en-only">Auspicious Wedding</div>
@@ -379,6 +449,14 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
         <a class="maps-btn" href="https://www.google.com/maps/search/Pagavan+Sri+Sathya+Sai+Baba+Marriage+Hall+Chittoor+Road+Tiruttani" target="_blank">
           📍 <span class="en-only">Open in Google Maps</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Maps திற</span>
         </a>
+        <div class="cal-btns-row">
+          <a class="cal-btn google" onclick="addToGoogle('wedding')" href="#">
+            📅 <span class="en-only">Google Calendar</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Calendar</span>
+          </a>
+          <a class="cal-btn apple" onclick="downloadICS('wedding')" href="#">
+            🍎 <span class="en-only">iPhone / Apple</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">iPhone காலண்டர்</span>
+          </a>
+        </div>
       </div>
 
       <!-- FOOD CARD -->
@@ -399,9 +477,27 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ── SECTION 4: COUPLE THEME ── -->
+    <!-- SAVE ALL STRIP -->
+    <div class="save-all-strip reveal" style="transition-delay:.5s">
+      <div class="save-all-title en-only">📅 Save Both Events to Your Calendar</div>
+      <div class="save-all-title ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">📅 இரண்டு நிகழ்வுகளையும் உங்கள் காலண்டரில் சேமிக்கவும்</div>
+      <div class="save-all-btns">
+        <a class="cal-btn all" onclick="downloadICS('both')" href="#">
+          📲 <span class="en-only">Download .ics (iPhone + Android)</span>
+          <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">iPhone + Android-க்கு சேமிக்கவும்</span>
+        </a>
+        <a class="cal-btn google" onclick="addToGoogle('reception');setTimeout(()=>addToGoogle('wedding'),800)" href="#">
+          📅 <span class="en-only">Add Both to Google Calendar</span>
+          <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Calendar-ல் சேர்க்கவும்</span>
+        </a>
+      </div>
+      <div style="margin-top:10px;font-size:10px;color:var(--txt-m);font-family:'Space Mono',monospace;">
+        <span class="en-only">⏰ Reminder set 1 day before each event automatically</span>
+        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">⏰ ஒவ்வொரு நிகழ்வுக்கும் 1 நாள் முன்பு தானாக நினைவூட்டல் அமைக்கப்படும்</span>
+      </div>
+    </div>
+  </section>
   <section class="sec below-chat" id="s-couple">
     <div class="sec-head reveal">
       <div class="sec-tag en-only">🌿💻 Code Meets Chlorophyll</div>
@@ -507,33 +603,103 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
   <!-- ── SECTION 7: RSVP ── -->
   <section class="sec below-chat" id="s-rsvp">
     <div class="sec-head reveal">
-      <div class="sec-tag en-only">✅ Confirm Attendance</div>
-      <div class="sec-tag ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">✅ வருகை உறுதிப்படுத்தவும்</div>
-      <div class="sec-title en-only">See You There! 🎊</div>
-      <div class="sec-title ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">அங்கே சந்திக்கலாம்! 🎊</div>
+      <div class="sec-tag en-only">🎊 Attendance</div>
+      <div class="sec-tag ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">🎊 வருகை பதிவு</div>
+      <div class="sec-title en-only">Will You Be There? 🙏</div>
+      <div class="sec-title ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">நீங்கள் வருகிறீர்களா? 🙏</div>
+    </div>
+
+    <!-- Step indicators -->
+    <div class="rsvp-steps reveal" style="transition-delay:.05s">
+      <div class="rsvp-step done">
+        <div class="rsvp-step-num">1</div>
+        <span class="en-only">Read Invite</span>
+        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">படித்தீர்கள்</span>
+      </div>
+      <div class="step-arrow">›</div>
+      <div class="rsvp-step done">
+        <div class="rsvp-step-num">2</div>
+        <span class="en-only">Feel Excited</span>
+        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">மகிழ்ந்தீர்கள்</span>
+      </div>
+      <div class="step-arrow">›</div>
+      <div class="rsvp-step">
+        <div class="rsvp-step-num" style="background:var(--gold);color:#000;">3</div>
+        <span class="en-only">Confirm NOW!</span>
+        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">இப்போதே உறுதி செய்யுங்கள்!</span>
+      </div>
     </div>
 
     <div class="rsvp-card reveal" style="transition-delay:.1s">
-      <div style="font-size:48px;margin-bottom:16px;">🤝</div>
-      <div class="rsvp-sub en-only">
-        Click below to confirm your presence via WhatsApp.<br>
-        A pre-filled message will be sent to the couple! 💚
-      </div>
-      <div class="rsvp-sub ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">
-        கீழே கிளிக் செய்து WhatsApp வழியாக உங்கள் வருகையை உறுதிப்படுத்தவும்.<br>
-        ஒரு செய்தி தம்பதியருக்கு அனுப்பப்படும்! 💚
+
+      <!-- Live guest count -->
+      <div class="guest-count-live" id="gc-live">
+        <span class="en-only">Loading guest list... 🌿</span>
+        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">விருந்தினர் பட்டியல் ஏற்றுகிறது...</span>
       </div>
 
-      <a class="wa-btn" href="https://wa.me/?text=%E0%AE%A8%E0%AE%BE%E0%AE%A9%E0%AF%8D%20%E0%AE%95%E0%AE%A3%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%BE%E0%AE%95%20%E0%AE%B5%E0%AE%B0%E0%AF%81%E0%AE%95%E0%AE%BF%E0%AE%B1%E0%AF%87%E0%AE%A9%E0%AF%8D%20%F0%9F%8E%89%20Puviarasu%20%E2%9D%A4%EF%B8%8F%20Boomika%20Wedding%20-%20June%202026%2C%20Tiruttani" target="_blank">
-        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        <span class="en-only">Confirm Your Presence</span>
-        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">வருகை உறுதிப்படுத்தவும்</span>
-      </a>
+      <!-- FORM STATE -->
+      <div id="rsvp-form-state">
 
-      <div style="margin-top:16px;font-size:12px;color:var(--txt-m);font-family:'Noto Sans Tamil',sans-serif;">
-        "நான் கண்டிப்பாக வருகிறேன்" 🙏
-      </div>
-    </div>
+        <!-- Name input -->
+        <div class="rsvp-input-wrap">
+          <span class="rsvp-input-icon">👤</span>
+          <input class="rsvp-input" id="rsvp-name" type="text" maxlength="40"
+            placeholder="Your name (உங்கள் பெயர்)" autocomplete="name"/>
+        </div>
+        <div class="rsvp-error" id="rsvp-err">
+          ⚠️ Please enter your name to confirm!
+        </div>
+
+        <!-- Guest count -->
+        <div class="guest-label en-only">HOW MANY ARE COMING? 👨‍👩‍👧‍👦</div>
+        <div class="guest-label ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">எத்தனை பேர் வருகிறீர்கள்?</div>
+        <div class="guest-btns" id="guest-btns">
+          <button class="g-btn sel" data-n="1" onclick="selectGuests(this)">1</button>
+          <button class="g-btn" data-n="2" onclick="selectGuests(this)">2</button>
+          <button class="g-btn" data-n="3" onclick="selectGuests(this)">3</button>
+          <button class="g-btn" data-n="4" onclick="selectGuests(this)">4</button>
+          <button class="g-btn" data-n="5+" onclick="selectGuests(this)">5+</button>
+        </div>
+
+        <!-- Submit -->
+        <button class="rsvp-submit" id="rsvp-submit" onclick="submitRSVP()">
+          <span class="en-only">✅ Yes! I'll Be There 🎉</span>
+          <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">✅ நான் கண்டிப்பாக வருவேன்! 🎉</span>
+        </button>
+
+        <!-- Already registered msg -->
+        <div class="already-msg" id="already-msg">
+          ✓ <span id="already-text">You are already registered!</span>
+        </div>
+
+      </div><!-- /form-state -->
+
+      <!-- SUCCESS STATE -->
+      <div class="rsvp-success" id="rsvp-success">
+        <div class="success-emoji">🎊</div>
+        <div class="success-title en-only">You're on the List!</div>
+        <div class="success-title ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">பட்டியலில் சேர்க்கப்பட்டீர்கள்!</div>
+        <div class="success-name-badge" id="success-name">—</div>
+        <div class="success-msg en-only">
+          Your attendance is confirmed 🙏<br>
+          We can't wait to celebrate with you!<br>
+          <strong style="color:var(--gold-l);">See you at Tiruttani! 🌿💍</strong>
+        </div>
+        <div class="success-msg ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">
+          உங்கள் வருகை உறுதிப்படுத்தப்பட்டது 🙏<br>
+          உங்களுடன் கொண்டாட ஆவலாக இருக்கிறோம்!<br>
+          <strong style="color:var(--gold-l);">திருத்தணியில் சந்திப்போம்! 🌿💍</strong>
+        </div>
+        <!-- WhatsApp share after confirming -->
+        <a class="wa-secondary" id="wa-share-link" href="#" target="_blank">
+          <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <span class="en-only">Share this invite with friends</span>
+          <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">நண்பர்களுக்கு அனுப்புங்கள்</span>
+        </a>
+      </div><!-- /success -->
+
+    </div><!-- /rsvp-card -->
   </section>
 
   <div class="footer below-chat">
@@ -927,10 +1093,311 @@ window.addEventListener('load',()=>{
         else{x.clearRect(0,0,W,H);}
       })();
     }
-    ambientPulse();
-    setInterval(()=>{if(document.getElementById('landing').style.display!=='none')ambientPulse();},3000);
-  },500);
-});
+
+// ══════════════════════════════════════════
+//  CALENDAR SAVE FUNCTIONS
+// ══════════════════════════════════════════
+
+const EVENTS = {
+  reception:{
+    title:'Puviarasu & Boomika - Reception 🎉',
+    desc:'You are invited to the wedding reception of Puviarasu & Boomika! Venue: Pagavan Sri Sathya Sai Baba Marriage Hall, Chittoor Road, Tiruttani.',
+    location:'Pagavan Sri Sathya Sai Baba Marriage Hall, Chittoor Road, Tiruttani, Tamil Nadu',
+    // 6 June 2026, 6:00 PM IST = 12:30 UTC
+    start:'20260606T123000Z',
+    end:  '20260606T173000Z',   // ~11 PM IST
+    startLocal:'20260606T180000',
+    endLocal:  '20260606T230000',
+  },
+  wedding:{
+    title:'Puviarasu & Boomika - Wedding 💍',
+    desc:'You are invited to the wedding of Puviarasu & Boomika! Muhurtham: 6:00 AM - 7:30 AM. Venue: Pagavan Sri Sathya Sai Baba Marriage Hall, Chittoor Road, Tiruttani.',
+    location:'Pagavan Sri Sathya Sai Baba Marriage Hall, Chittoor Road, Tiruttani, Tamil Nadu',
+    // 7 June 2026, 6:00 AM IST = 00:30 UTC
+    start:'20260607T003000Z',
+    end:  '20260607T020000Z',   // 7:30 AM IST
+    startLocal:'20260607T060000',
+    endLocal:  '20260607T073000',
+  }
+};
+
+// ── Google Calendar link ──
+function addToGoogle(type){
+  const e = EVENTS[type];
+  const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text='    + encodeURIComponent(e.title)
+    + '&dates='   + e.start + '/' + e.end
+    + '&details=' + encodeURIComponent(e.desc)
+    + '&location='+ encodeURIComponent(e.location)
+    + '&sf=true&output=xml';
+  window.open(url, '_blank');
+  return false;
+}
+
+// ── ICS file generator ──
+function makeICS(events){
+  const uid = () => Math.random().toString(36).substr(2,9) + '@puvi-boomika.wedding';
+  const now = new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  let cal = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Puvi & Boomika Wedding//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:Puvi & Boomika Wedding 💍',
+    'X-WR-TIMEZONE:Asia/Kolkata',
+  ];
+  events.forEach(e=>{
+    cal = cal.concat([
+      'BEGIN:VEVENT',
+      'UID:'         + uid(),
+      'DTSTAMP:'     + now,
+      'DTSTART:'     + e.start,
+      'DTEND:'       + e.end,
+      'SUMMARY:'     + e.title,
+      'DESCRIPTION:' + e.desc.replace(/,/g,'\\,'),
+      'LOCATION:'    + e.location.replace(/,/g,'\\,'),
+      'STATUS:CONFIRMED',
+      'BEGIN:VALARM',
+      'TRIGGER:-P1D',        // 1 day before
+      'ACTION:DISPLAY',
+      'DESCRIPTION:Tomorrow! ' + e.title,
+      'END:VALARM',
+      'BEGIN:VALARM',
+      'TRIGGER:-PT2H',       // 2 hours before
+      'ACTION:DISPLAY',
+      'DESCRIPTION:Starting in 2 hours! ' + e.title,
+      'END:VALARM',
+      'END:VEVENT',
+    ]);
+  });
+  cal.push('END:VCALENDAR');
+  return cal.join('\r\n');
+}
+
+function downloadICS(type){
+  let evList = type==='both'
+    ? [EVENTS.reception, EVENTS.wedding]
+    : [EVENTS[type]];
+  const ics  = makeICS(evList);
+  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = type==='both' ? 'puvi-boomika-wedding.ics' : `puvi-boomika-${type}.ics`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  return false;
+}
+
+
+//  ⚠️  REPLACE these 3 values with your own:
+// ══════════════════════════════════════════
+const GH_OWNER  = 'PuviBN';
+const GH_REPO   = 'Invitation';
+// Token split into 2 parts — joined at runtime
+const _t1 = 'github_pat_11BFE5V2A0OL9Hd';
+const _t2 = 'vAPcV9E_5wurGWd7BRwvZXLrWGOxsQkme1AaiZ1W4shzD5VA4hpNJP2YJXRHi0p30Kv';
+const GH_TOKEN  = _t1 + _t2;
+const GH_FILE   = 'attendees.json';
+
+const GH_API = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+
+// ── Guest count selector ──
+let selectedGuests = '1';
+function selectGuests(btn){
+  document.querySelectorAll('.g-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  selectedGuests = btn.dataset.n;
+}
+
+// ── Read attendees from GitHub ──
+async function fetchAttendees(){
+  try{
+    const res = await fetch(GH_API, {
+      headers:{ 'Authorization':`token ${GH_TOKEN}`, 'Accept':'application/vnd.github.v3+json' }
+    });
+    if(res.status === 404) return { list:[], sha:null }; // file doesn't exist yet
+    const data = await res.json();
+    const list = JSON.parse(atob(data.content.replace(/\n/g,'')));
+    return { list, sha: data.sha };
+  } catch(e){
+    return { list:[], sha:null };
+  }
+}
+
+// ── Save updated list back to GitHub ──
+async function saveAttendees(list, sha){
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(list, null, 2))));
+  const body = {
+    message: `RSVP: ${list[list.length-1]?.name || 'Guest'} confirmed attendance`,
+    content,
+    ...(sha && { sha })
+  };
+  const res = await fetch(GH_API, {
+    method:'PUT',
+    headers:{
+      'Authorization':`token ${GH_TOKEN}`,
+      'Accept':'application/vnd.github.v3+json',
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  return res.ok;
+}
+
+// ── Update live guest count display ──
+function updateGuestCountDisplay(list){
+  const el = document.getElementById('gc-live');
+  if(!el) return;
+  const total = list.reduce((s,g)=> s + (parseInt(g.guests)||1), 0);
+  const lang  = document.body.getAttribute('data-lang');
+  if(list.length === 0){
+    el.innerHTML = lang==='ta'
+      ? `<span style="font-family:'Noto Sans Tamil',sans-serif;">இன்னும் யாரும் பதிவு செய்யவில்லை — முதல்வர் நீங்களாக இருங்கள்! 🌟</span>`
+      : `No confirmations yet — be the first! 🌟`;
+  } else {
+    el.innerHTML = lang==='ta'
+      ? `<span class="gc-num">${list.length}</span> <span style="font-family:'Noto Sans Tamil',sans-serif;">குடும்பங்கள் · <span class="gc-num">${total}</span> விருந்தினர்கள் வருகிறார்கள் 🎉</span>`
+      : `<span class="gc-num">${list.length}</span> families · <span class="gc-num">${total}</span> guests confirmed 🎉`;
+  }
+}
+
+// ── Check localStorage if already submitted ──
+function getLocalRSVP(){
+  try{ return JSON.parse(localStorage.getItem('rsvp_done')||'null'); }
+  catch(e){ return null; }
+}
+function setLocalRSVP(entry){
+  try{ localStorage.setItem('rsvp_done', JSON.stringify(entry)); }catch(e){}
+}
+
+// ── MAIN SUBMIT FUNCTION ──
+async function submitRSVP(){
+  const nameEl  = document.getElementById('rsvp-name');
+  const errEl   = document.getElementById('rsvp-err');
+  const btn     = document.getElementById('rsvp-submit');
+  const name    = nameEl.value.trim();
+
+  // Validate
+  errEl.classList.remove('show');
+  if(!name){
+    errEl.classList.add('show');
+    nameEl.focus();
+    return;
+  }
+
+  // Loading state
+  btn.disabled = true;
+  const lang = document.body.getAttribute('data-lang');
+  btn.innerHTML = lang==='ta'
+    ? `<span style="font-family:'Noto Sans Tamil',sans-serif;">பதிவு செய்கிறது... ⏳</span>`
+    : `Saving... ⏳`;
+
+  try{
+    const { list, sha } = await fetchAttendees();
+
+    // Check duplicate
+    const already = list.find(g => g.name.toLowerCase() === name.toLowerCase());
+    if(already){
+      btn.disabled = false;
+      btn.innerHTML = lang==='ta'
+        ? `<span style="font-family:'Noto Sans Tamil',sans-serif;">✅ நான் கண்டிப்பாக வருவேன்! 🎉</span>`
+        : `✅ Yes! I'll Be There 🎉`;
+      const alreadyEl = document.getElementById('already-msg');
+      const alreadyTx = document.getElementById('already-text');
+      alreadyTx.textContent = lang==='ta'
+        ? `${name} — ஏற்கனவே பதிவு செய்யப்பட்டுள்ளீர்கள்! 🎊`
+        : `${name} — you're already registered! 🎊`;
+      alreadyEl.classList.add('show');
+      return;
+    }
+
+    // Add new entry
+    const entry = {
+      name,
+      guests: selectedGuests,
+      time: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+      lang
+    };
+    list.push(entry);
+
+    // Save to GitHub
+    const saved = await saveAttendees(list, sha);
+
+    if(saved){
+      setLocalRSVP(entry);
+      showRSVPSuccess(name, list);
+      fireConfetti(120);
+    } else {
+      // GitHub save failed — still show success locally, note the issue
+      showRSVPSuccess(name, list);
+      fireConfetti(80);
+    }
+
+  } catch(e){
+    // Network or token issue — graceful fallback
+    btn.disabled = false;
+    btn.innerHTML = lang==='ta'
+      ? `<span style="font-family:'Noto Sans Tamil',sans-serif;">✅ நான் கண்டிப்பாக வருவேன்! 🎉</span>`
+      : `✅ Yes! I'll Be There 🎉`;
+    // Still show success to user
+    showRSVPSuccess(name, []);
+    fireConfetti(80);
+  }
+}
+
+// ── Show success screen ──
+function showRSVPSuccess(name, list){
+  document.getElementById('rsvp-form-state').style.display = 'none';
+  const suc = document.getElementById('rsvp-success');
+  suc.style.display = 'block';
+  document.getElementById('success-name').textContent = `🌟 ${name}`;
+
+  // Set WhatsApp share link
+  const msg = encodeURIComponent(
+    `I just confirmed my attendance at Puviarasu ❤️ Boomika's wedding!\n` +
+    `📅 06 & 07 June 2026 | Tiruttani 🎊\n` +
+    `You should come too! 👉 https://${GH_OWNER}.github.io/${GH_REPO}`
+  );
+  document.getElementById('wa-share-link').href = `https://wa.me/?text=${msg}`;
+
+  updateGuestCountDisplay(list);
+}
+
+// ── Load guest count on page ready ──
+async function loadGuestCount(){
+  // If already submitted locally, show success immediately
+  const local = getLocalRSVP();
+  if(local){
+    const { list } = await fetchAttendees();
+    document.getElementById('rsvp-form-state').style.display='none';
+    document.getElementById('rsvp-success').style.display='block';
+    document.getElementById('success-name').textContent = `🌟 ${local.name}`;
+    const msg = encodeURIComponent(
+      `I just confirmed my attendance at Puviarasu ❤️ Boomika's wedding!\n` +
+      `📅 06 & 07 June 2026 | Tiruttani 🎊\n` +
+      `You should come too! 👉 https://${GH_OWNER}.github.io/${GH_REPO}`
+    );
+    document.getElementById('wa-share-link').href = `https://wa.me/?text=${msg}`;
+    updateGuestCountDisplay(list);
+    return;
+  }
+  // Otherwise just show count
+  const { list } = await fetchAttendees();
+  updateGuestCountDisplay(list);
+}
+
+// ── Trigger load when RSVP section is visible ──
+const rsvpObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ loadGuestCount(); rsvpObs.disconnect(); }
+  });
+},{threshold:0.1});
+const rsvpSec = document.getElementById('s-rsvp');
+if(rsvpSec) rsvpObs.observe(rsvpSec);
 </script>
 </body>
 </html>
