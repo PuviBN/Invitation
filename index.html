@@ -137,8 +137,6 @@ body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--txt
 .cal-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 16px;border-radius:50px;font-size:11px;font-family:'Space Mono',monospace;letter-spacing:.5px;cursor:pointer;border:none;text-decoration:none;transition:all .25s;white-space:nowrap;}
 .cal-btn.google{background:rgba(66,133,244,.15);border:1px solid rgba(66,133,244,.35);color:#7baff5;}
 .cal-btn.google:hover{background:rgba(66,133,244,.28);}
-.cal-btn.apple{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);color:var(--txt);}
-.cal-btn.apple:hover{background:rgba(255,255,255,.16);}
 .cal-btn.all{background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.3);color:var(--gold-l);}
 .cal-btn.all:hover{background:rgba(201,162,39,.22);}
 .cal-btns-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;}
@@ -424,11 +422,8 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
           📍 <span class="en-only">Open in Google Maps</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Maps திற</span>
         </a>
         <div class="cal-btns-row">
-          <a class="cal-btn google" onclick="addToGoogle('reception')" href="#">
-            📅 <span class="en-only">Google Calendar</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Calendar</span>
-          </a>
-          <a class="cal-btn apple" onclick="downloadICS('reception')" href="#">
-            🍎 <span class="en-only">iPhone / Apple</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">iPhone காலண்டர்</span>
+          <a class="cal-btn google" onclick="return addToGoogle('reception')">
+            📅 <span class="en-only">Add to Google Calendar</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Calendar-ல் சேர்</span>
           </a>
         </div>
       </div>
@@ -450,11 +445,8 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
           📍 <span class="en-only">Open in Google Maps</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Maps திற</span>
         </a>
         <div class="cal-btns-row">
-          <a class="cal-btn google" onclick="addToGoogle('wedding')" href="#">
-            📅 <span class="en-only">Google Calendar</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Calendar</span>
-          </a>
-          <a class="cal-btn apple" onclick="downloadICS('wedding')" href="#">
-            🍎 <span class="en-only">iPhone / Apple</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">iPhone காலண்டர்</span>
+          <a class="cal-btn google" onclick="return addToGoogle('wedding')">
+            📅 <span class="en-only">Add to Google Calendar</span><span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Calendar-ல் சேர்</span>
           </a>
         </div>
       </div>
@@ -480,21 +472,17 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
 
     <!-- SAVE ALL STRIP -->
     <div class="save-all-strip reveal" style="transition-delay:.5s">
-      <div class="save-all-title en-only">📅 Save Both Events to Your Calendar</div>
-      <div class="save-all-title ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">📅 இரண்டு நிகழ்வுகளையும் உங்கள் காலண்டரில் சேமிக்கவும்</div>
+      <div class="save-all-title en-only">📅 Save Both Events to Google Calendar</div>
+      <div class="save-all-title ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">📅 இரண்டு நிகழ்வுகளையும் Google Calendar-ல் சேமிக்கவும்</div>
       <div class="save-all-btns">
-        <a class="cal-btn all" onclick="downloadICS('both')" href="#">
-          📲 <span class="en-only">Download .ics (iPhone + Android)</span>
-          <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">iPhone + Android-க்கு சேமிக்கவும்</span>
-        </a>
-        <a class="cal-btn google" onclick="addToGoogle('reception');setTimeout(()=>addToGoogle('wedding'),800)" href="#">
-          📅 <span class="en-only">Add Both to Google Calendar</span>
-          <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">Google Calendar-ல் சேர்க்கவும்</span>
+        <a class="cal-btn google" onclick="addToGoogle('reception');setTimeout(()=>addToGoogle('wedding'),800);return false;" href="javascript:void(0)">
+          📅 <span class="en-only">Add Both Events to Google Calendar</span>
+          <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">இரண்டையும் Google Calendar-ல் சேர்க்கவும்</span>
         </a>
       </div>
       <div style="margin-top:10px;font-size:10px;color:var(--txt-m);font-family:'Space Mono',monospace;">
         <span class="en-only">⏰ Reminder set 1 day before each event automatically</span>
-        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">⏰ ஒவ்வொரு நிகழ்வுக்கும் 1 நாள் முன்பு தானாக நினைவூட்டல் அமைக்கப்படும்</span>
+        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">⏰ ஒவ்வொரு நிகழ்வுக்கும் 1 நாள் முன்பு தானாக நினைவூட்டல்</span>
       </div>
     </div>
   </section>
@@ -898,6 +886,8 @@ function revealAll(){
     const evEl = document.getElementById('s-events');
     const top  = evEl.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({top: top, behavior: 'instant'});
+    // Load guest count now sections are visible
+    setTimeout(tryLoadGuestCount, 300);
   }, 30);
 }
 
@@ -1093,9 +1083,10 @@ window.addEventListener('load',()=>{
         else{x.clearRect(0,0,W,H);}
       })();
     }
-
-// ══════════════════════════════════════════
-//  CALENDAR SAVE FUNCTIONS
+    ambientPulse();
+    setInterval(()=>{if(document.getElementById('landing').style.display!=='none')ambientPulse();},3000);
+  },500);
+});
 // ══════════════════════════════════════════
 
 const EVENTS = {
@@ -1130,67 +1121,18 @@ function addToGoogle(type){
     + '&details=' + encodeURIComponent(e.desc)
     + '&location='+ encodeURIComponent(e.location)
     + '&sf=true&output=xml';
-  window.open(url, '_blank');
-  return false;
-}
-
-// ── ICS file generator ──
-function makeICS(events){
-  const uid = () => Math.random().toString(36).substr(2,9) + '@puvi-boomika.wedding';
-  const now = new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
-  let cal = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Puvi & Boomika Wedding//EN',
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
-    'X-WR-CALNAME:Puvi & Boomika Wedding 💍',
-    'X-WR-TIMEZONE:Asia/Kolkata',
-  ];
-  events.forEach(e=>{
-    cal = cal.concat([
-      'BEGIN:VEVENT',
-      'UID:'         + uid(),
-      'DTSTAMP:'     + now,
-      'DTSTART:'     + e.start,
-      'DTEND:'       + e.end,
-      'SUMMARY:'     + e.title,
-      'DESCRIPTION:' + e.desc.replace(/,/g,'\\,'),
-      'LOCATION:'    + e.location.replace(/,/g,'\\,'),
-      'STATUS:CONFIRMED',
-      'BEGIN:VALARM',
-      'TRIGGER:-P1D',        // 1 day before
-      'ACTION:DISPLAY',
-      'DESCRIPTION:Tomorrow! ' + e.title,
-      'END:VALARM',
-      'BEGIN:VALARM',
-      'TRIGGER:-PT2H',       // 2 hours before
-      'ACTION:DISPLAY',
-      'DESCRIPTION:Starting in 2 hours! ' + e.title,
-      'END:VALARM',
-      'END:VEVENT',
-    ]);
-  });
-  cal.push('END:VCALENDAR');
-  return cal.join('\r\n');
-}
-
-function downloadICS(type){
-  let evList = type==='both'
-    ? [EVENTS.reception, EVENTS.wedding]
-    : [EVENTS[type]];
-  const ics  = makeICS(evList);
-  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href     = url;
-  a.download = type==='both' ? 'puvi-boomika-wedding.ics' : `puvi-boomika-${type}.ics`;
+  // Use anchor click — works on iOS Safari & Android (window.open gets blocked)
+  const a = document.createElement('a');
+  a.href   = url;
+  a.target = '_blank';
+  a.rel    = 'noopener';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-  URL.revokeObjectURL(url);
   return false;
 }
+
+
 
 
 //  ⚠️  REPLACE these 3 values with your own:
@@ -1391,11 +1333,19 @@ async function loadGuestCount(){
 }
 
 // ── Trigger load when RSVP section is visible ──
+// Use both IntersectionObserver AND a fallback after revealAll
+let rsvpLoaded = false;
+function tryLoadGuestCount(){
+  if(rsvpLoaded) return;
+  rsvpLoaded = true;
+  loadGuestCount();
+}
+
 const rsvpObs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(e.isIntersecting){ loadGuestCount(); rsvpObs.disconnect(); }
+    if(e.isIntersecting){ tryLoadGuestCount(); rsvpObs.disconnect(); }
   });
-},{threshold:0.1});
+},{threshold:0.05});
 const rsvpSec = document.getElementById('s-rsvp');
 if(rsvpSec) rsvpObs.observe(rsvpSec);
 </script>
