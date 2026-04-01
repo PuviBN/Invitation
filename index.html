@@ -160,8 +160,8 @@ body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--txt
 .ev-note strong{color:var(--gold-l);}
 
 /* ── COUPLE SECTION ── */
-#s-couple{background:var(--bg);}
-.cp-wrap{max-width:700px;margin:24px auto 0;border-radius:20px;overflow:hidden;}
+#s-couple{background:var(--bg);padding-bottom:24px;}
+#s-invite{background:linear-gradient(180deg,#0a1a0e,#050d08);padding:30px 20px 50px;text-align:center;}.cp-wrap{max-width:700px;margin:24px auto 0;border-radius:20px;overflow:hidden;}
 .cp-split{display:grid;grid-template-columns:1fr 60px 1fr;}
 @media(max-width:480px){.cp-split{grid-template-columns:1fr;} .cp-div{height:50px;width:100%;}}
 .cp-groom{background:linear-gradient(150deg,#080d08 0%,#0a180e 100%);padding:28px 20px;position:relative;overflow:hidden;}
@@ -181,7 +181,7 @@ body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--txt
 .roots{position:absolute;bottom:-10px;left:-10px;font-size:50px;opacity:.1;animation:sway 6s ease-in-out infinite reverse;pointer-events:none;}
 
 /* ── INVITE SECTION ── */
-#s-invite{background:linear-gradient(180deg,#0a1a0e,#050d08);padding:60px 20px 50px;text-align:center;}
+#s-invite{background:linear-gradient(180deg,#0a1a0e,#050d08);text-align:center;padding-top:20px;}
 .inv-card{max-width:500px;margin:24px auto 0;background:var(--glass);border:1px solid rgba(201,162,39,.25);border-radius:24px;padding:34px 24px;backdrop-filter:blur(12px);position:relative;overflow:hidden;}
 .inv-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(201,162,39,.07) 0%,transparent 55%),radial-gradient(ellipse at bottom,rgba(0,255,136,.04) 0%,transparent 55%);pointer-events:none;}
 .inv-om{font-size:40px;margin-bottom:14px;}
@@ -297,6 +297,17 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
 .bn-badge{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;animation:pulse 1.8s infinite;margin-bottom:6px;}
 .bn-text{font-size:13px;color:var(--txt-m);line-height:1.6;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* ── COUNTDOWN ── */
+.countdown-wrap{max-width:380px;margin:20px auto 0;text-align:center;padding:0 8px;}
+.countdown-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--cir);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;}
+.countdown-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.cd-box{background:rgba(255,255,255,.04);border:1px solid rgba(201,162,39,.2);border-radius:12px;padding:12px 4px 8px;position:relative;overflow:hidden;min-width:0;}
+.cd-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.cd-num-txt{font-family:'Cinzel',serif;font-size:clamp(22px,7.5vw,38px);font-weight:900;background:linear-gradient(135deg,#fff 0%,var(--gold-l) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2;display:block;transition:transform .25s;}
+.cd-num-txt.pop{animation:numPop .3s ease;}
+@keyframes numPop{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+.cd-unit{font-family:'Space Mono',monospace;font-size:clamp(6px,1.8vw,8px);color:var(--txt-m);letter-spacing:1px;margin-top:4px;display:block;text-transform:uppercase;}
+.cd-done{font-family:'Cinzel',serif;font-size:clamp(13px,4vw,17px);color:var(--gold-l);margin-top:12px;display:none;}
 </style>
 </head>
 <body data-lang="en">
@@ -470,73 +481,42 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
       </div>
     </div>
 
-    <!-- SAVE ALL STRIP -->
-    <div class="save-all-strip reveal" style="transition-delay:.5s">
-      <div class="save-all-title en-only">📅 Save Both Events to Google Calendar</div>
-      <div class="save-all-title ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">📅 இரண்டு நிகழ்வுகளையும் Google Calendar-ல் சேமிக்கவும்</div>
-      <div class="save-all-btns">
-        <a class="cal-btn google" onclick="addToGoogle('reception');setTimeout(()=>addToGoogle('wedding'),800);return false;" href="javascript:void(0)">
-          📅 <span class="en-only">Add Both Events to Google Calendar</span>
-          <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">இரண்டையும் Google Calendar-ல் சேர்க்கவும்</span>
-        </a>
-      </div>
-      <div style="margin-top:10px;font-size:10px;color:var(--txt-m);font-family:'Space Mono',monospace;">
-        <span class="en-only">⏰ Reminder set 1 day before each event automatically</span>
-        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">⏰ ஒவ்வொரு நிகழ்வுக்கும் 1 நாள் முன்பு தானாக நினைவூட்டல்</span>
-      </div>
-    </div>
   </section>
-  <section class="sec below-chat" id="s-couple">
+  <section class="sec below-chat" id="s-couple" style="padding-top:30px;">
     <div class="sec-head reveal">
-      <div class="sec-tag en-only">🌿💻 Code Meets Chlorophyll</div>
-      <div class="sec-tag ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">🌿💻 குறியீடு & இயற்கை</div>
-      <div class="sec-title en-only">The Perfect Union</div>
-      <div class="sec-title ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">இணையும் இரு மனங்கள்</div>
+      <div class="sec-tag en-only">💍 June 2026</div>
+      <div class="sec-tag ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">💍 ஜூன் 2026</div>
+      <div class="sec-title en-only">Wedding Countdown ⏳</div>
+      <div class="sec-title ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">திருமண கவுண்ட்டவுன் ⏳</div>
     </div>
 
-    <div class="cp-wrap reveal" style="transition-delay:.15s">
-      <div class="cp-split">
-        <!-- GROOM SIDE -->
-        <div class="cp-groom">
-          <div class="circuit-grid"></div>
-          <div class="cp-lbl groom-lbl">⚡ The Groom</div>
-          <div class="cp-nm">B.N. Puviarasu</div>
-          <div class="terminal">
-            &gt; <span style="color:#fff">role:</span> Embedded SW Dev<br>
-            &gt; <span style="color:#fff">status:</span> <span style="color:#25D366">married.exe</span><br>
-            &gt; <span style="color:#fff">heart:</span> <span style="color:#ff6b6b">❤️ Boomika</span><br>
-            &gt; <span class="cur" style="color:var(--cir)">_</span>
-          </div>
-          <div class="cp-q en-only">"Engineered with Logic,<br>Running on Love ❤️"</div>
-          <div class="cp-q ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">"தர்க்கத்தில் உருவானவன்,<br>அன்பில் இயங்குகிறேன் ❤️"</div>
+    <!-- COUNTDOWN -->
+    <div class="countdown-wrap reveal" style="transition-delay:.2s">
+      <div class="countdown-label en-only">⏳ Wedding Countdown</div>
+      <div class="countdown-label ta-only" style="font-family:'Noto Sans Tamil',sans-serif;display:none;">⏳ திருமண கவுண்ட்டவுன்</div>
+      <div class="countdown-grid">
+        <div class="cd-box" id="cd-days">
+          <span class="cd-num-txt" id="cd-d">00</span>
+          <span class="cd-unit en-only">DAYS</span>
+          <span class="cd-unit ta-only" style="font-family:'Noto Sans Tamil',sans-serif;display:none;">நாட்கள்</span>
         </div>
-
-        <!-- CENTER DIVIDER -->
-        <div class="cp-div">💞</div>
-
-        <!-- BRIDE SIDE -->
-        <div class="cp-bride">
-          <div class="leaf-bg">🌿</div>
-          <div class="roots">🌱</div>
-          <div class="cp-lbl bride-lbl">🌸 The Bride</div>
-          <div class="cp-nm">L. Bhoomika</div>
-          <div style="font-size:32px;margin:10px 0;">🌿🌸🍃</div>
-          <div style="font-family:'Space Mono',monospace;font-size:9px;color:#a8e6cf;background:rgba(0,0,0,.4);border-radius:8px;padding:10px;border:1px solid rgba(168,230,207,.15);line-height:1.8;">
-            📚 MSc Botany<br>
-            🌱 Species: <span style="color:#d4f0d8">Botanist</span><br>
-            💚 Blooming: <span style="color:#25D366">∞ forever</span>
-          </div>
-          <div class="cp-q en-only">"Rooted in Nature,<br>Growing with Love 🌿"</div>
-          <div class="cp-q ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">"இயற்கையில் வேர்கொண்டவள்,<br>அன்பில் வளர்கிறேன் 🌿"</div>
+        <div class="cd-box" id="cd-hours">
+          <span class="cd-num-txt" id="cd-h">00</span>
+          <span class="cd-unit en-only">HOURS</span>
+          <span class="cd-unit ta-only" style="font-family:'Noto Sans Tamil',sans-serif;display:none;">மணி</span>
+        </div>
+        <div class="cd-box" id="cd-mins">
+          <span class="cd-num-txt" id="cd-m">00</span>
+          <span class="cd-unit en-only">MINS</span>
+          <span class="cd-unit ta-only" style="font-family:'Noto Sans Tamil',sans-serif;display:none;">நிமிடம்</span>
+        </div>
+        <div class="cd-box" id="cd-secs">
+          <span class="cd-num-txt" id="cd-s">00</span>
+          <span class="cd-unit en-only">SECS</span>
+          <span class="cd-unit ta-only" style="font-family:'Noto Sans Tamil',sans-serif;display:none;">வினாடி</span>
         </div>
       </div>
-
-      <!-- MERGE BAR -->
-      <div style="background:linear-gradient(90deg,#0a0f08,#0c1f12,#0a180e);padding:18px;text-align:center;border-top:1px solid rgba(255,255,255,.05);">
-        <div style="font-family:'Cinzel',serif;font-size:clamp(14px,3.5vw,20px);background:linear-gradient(90deg,var(--cir),var(--gold-l),#a8e6cf);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-          Where Silicon meets Chlorophyll 🌿💻❤️
-        </div>
-      </div>
+      <div class="cd-done" id="cd-done">🎊 The wedding is here! 💍</div>
     </div>
   </section>
 
@@ -620,11 +600,6 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
 
     <div class="rsvp-card reveal" style="transition-delay:.1s">
 
-      <!-- Live guest count -->
-      <div class="guest-count-live" id="gc-live">
-        <span class="en-only">Loading guest list... 🌿</span>
-        <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">விருந்தினர் பட்டியல் ஏற்றுகிறது...</span>
-      </div>
 
       <!-- FORM STATE -->
       <div id="rsvp-form-state">
@@ -637,17 +612,6 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
         </div>
         <div class="rsvp-error" id="rsvp-err">
           ⚠️ Please enter your name to confirm!
-        </div>
-
-        <!-- Guest count -->
-        <div class="guest-label en-only">HOW MANY ARE COMING? 👨‍👩‍👧‍👦</div>
-        <div class="guest-label ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">எத்தனை பேர் வருகிறீர்கள்?</div>
-        <div class="guest-btns" id="guest-btns">
-          <button class="g-btn sel" data-n="1" onclick="selectGuests(this)">1</button>
-          <button class="g-btn" data-n="2" onclick="selectGuests(this)">2</button>
-          <button class="g-btn" data-n="3" onclick="selectGuests(this)">3</button>
-          <button class="g-btn" data-n="4" onclick="selectGuests(this)">4</button>
-          <button class="g-btn" data-n="5+" onclick="selectGuests(this)">5+</button>
         </div>
 
         <!-- Submit -->
@@ -679,12 +643,21 @@ body.chat-lock{overflow:hidden;position:fixed;width:100%;}
           உங்களுடன் கொண்டாட ஆவலாக இருக்கிறோம்!<br>
           <strong style="color:var(--gold-l);">திருத்தணியில் சந்திப்போம்! 🌿💍</strong>
         </div>
-        <!-- WhatsApp share after confirming -->
-        <a class="wa-secondary" id="wa-share-link" href="#" target="_blank">
-          <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          <span class="en-only">Share this invite with friends</span>
-          <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">நண்பர்களுக்கு அனுப்புங்கள்</span>
-        </a>
+        <!-- Action buttons -->
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+          <!-- Send wishes via WhatsApp -->
+          <a class="wa-secondary" id="wa-wish-link" href="#" target="_blank"
+             style="justify-content:center;background:rgba(201,162,39,.12);border-color:rgba(201,162,39,.4);color:var(--gold-l);font-size:13px;padding:12px 20px;border-radius:12px;">
+            💌 <span class="en-only">Send Your Wishes on WhatsApp</span>
+            <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">WhatsApp-ல் வாழ்த்து சொல்லுங்கள்</span>
+          </a>
+          <!-- Share invitation -->
+          <a class="wa-secondary" id="wa-share-link" href="#" target="_blank"
+             style="justify-content:center;font-size:13px;padding:12px 20px;border-radius:12px;">
+            📤 <span class="en-only">Share This Invitation</span>
+            <span class="ta-only" style="font-family:'Noto Sans Tamil',sans-serif;">அழைப்பிதழ் பகிருங்கள்</span>
+          </a>
+        </div>
       </div><!-- /success -->
 
     </div><!-- /rsvp-card -->
@@ -880,12 +853,20 @@ function revealAll(){
   document.querySelectorAll('.below-chat').forEach(el=>{
     el.classList.add('revealed');
   });
+  // Force all .reveal elements inside newly shown sections to animate in
+  setTimeout(()=>{
+    document.querySelectorAll('.below-chat .reveal').forEach(el=>{
+      el.classList.add('vis');
+    });
+  }, 50);
 
   // Small delay to let browser repaint after scroll unlock
   setTimeout(()=>{
     const evEl = document.getElementById('s-events');
     const top  = evEl.getBoundingClientRect().top + window.pageYOffset;
     window.scrollTo({top: top, behavior: 'instant'});
+    // Start countdown now sections are visible
+    startCountdown();
     // Load guest count now sections are visible
     setTimeout(tryLoadGuestCount, 300);
   }, 30);
@@ -1135,6 +1116,40 @@ function addToGoogle(type){
 
 
 
+// ══════════════════════════════════════════
+//  COUNTDOWN TIMER — Wedding: 7 June 2026, 6:00 AM IST
+// ══════════════════════════════════════════
+let countdownStarted = false;
+function startCountdown(){
+  if(countdownStarted) return;
+  countdownStarted = true;
+  const weddingDate = new Date('2026-06-07T00:30:00Z'); // 6:00 AM IST
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function setVal(id, val){
+    const el = document.getElementById(id);
+    if(!el || el.textContent === val) return;
+    el.textContent = val;
+    el.classList.remove('pop');
+    void el.offsetWidth;
+    el.classList.add('pop');
+  }
+  function tick(){
+    const diff = weddingDate - new Date();
+    if(diff <= 0){
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(id=>setVal(id,'00'));
+      const done = document.getElementById('cd-done');
+      if(done) done.style.display = 'block';
+      return;
+    }
+    setVal('cd-d', pad(Math.floor(diff/86400000)));
+    setVal('cd-h', pad(Math.floor((diff%86400000)/3600000)));
+    setVal('cd-m', pad(Math.floor((diff%3600000)/60000)));
+    setVal('cd-s', pad(Math.floor((diff%60000)/1000)));
+    setTimeout(tick, 1000);
+  }
+  tick();
+}
+
 //  ⚠️  REPLACE these 3 values with your own:
 // ══════════════════════════════════════════
 const GH_OWNER  = 'PuviBN';
@@ -1147,13 +1162,7 @@ const GH_FILE   = 'attendees.json';
 
 const GH_API = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
 
-// ── Guest count selector ──
-let selectedGuests = '1';
-function selectGuests(btn){
-  document.querySelectorAll('.g-btn').forEach(b=>b.classList.remove('sel'));
-  btn.classList.add('sel');
-  selectedGuests = btn.dataset.n;
-}
+
 
 // ── Read attendees from GitHub ──
 async function fetchAttendees(){
@@ -1190,21 +1199,9 @@ async function saveAttendees(list, sha){
   return res.ok;
 }
 
-// ── Update live guest count display ──
+// ── Show who confirmed (names only, no count) ──
 function updateGuestCountDisplay(list){
-  const el = document.getElementById('gc-live');
-  if(!el) return;
-  const total = list.reduce((s,g)=> s + (parseInt(g.guests)||1), 0);
-  const lang  = document.body.getAttribute('data-lang');
-  if(list.length === 0){
-    el.innerHTML = lang==='ta'
-      ? `<span style="font-family:'Noto Sans Tamil',sans-serif;">இன்னும் யாரும் பதிவு செய்யவில்லை — முதல்வர் நீங்களாக இருங்கள்! 🌟</span>`
-      : `No confirmations yet — be the first! 🌟`;
-  } else {
-    el.innerHTML = lang==='ta'
-      ? `<span class="gc-num">${list.length}</span> <span style="font-family:'Noto Sans Tamil',sans-serif;">குடும்பங்கள் · <span class="gc-num">${total}</span> விருந்தினர்கள் வருகிறார்கள் 🎉</span>`
-      : `<span class="gc-num">${list.length}</span> families · <span class="gc-num">${total}</span> guests confirmed 🎉`;
-  }
+  // not displayed anymore — removed from UI
 }
 
 // ── Check localStorage if already submitted ──
@@ -1260,7 +1257,7 @@ async function submitRSVP(){
     // Add new entry
     const entry = {
       name,
-      guests: selectedGuests,
+      
       time: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
       lang
     };
@@ -1298,38 +1295,36 @@ function showRSVPSuccess(name, list){
   suc.style.display = 'block';
   document.getElementById('success-name').textContent = `🌟 ${name}`;
 
-  // Set WhatsApp share link
-  const msg = encodeURIComponent(
-    `I just confirmed my attendance at Puviarasu ❤️ Boomika's wedding!\n` +
-    `📅 06 & 07 June 2026 | Tiruttani 🎊\n` +
-    `You should come too! 👉 https://${GH_OWNER}.github.io/${GH_REPO}`
+  // WhatsApp WISH link — guests send wishes to the couple
+  // Replace 919XXXXXXXXX with Puvi's actual WhatsApp number
+  const wishMsg = encodeURIComponent(
+    `💐 Congratulations Puviarasu & Boomika! ❤️\n\n` +
+    `Wishing you both a lifetime of love, happiness and togetherness! 🌿💍\n\n` +
+    `— ${name}`
   );
-  document.getElementById('wa-share-link').href = `https://wa.me/?text=${msg}`;
+  const wishEl = document.getElementById('wa-wish-link');
+  if(wishEl) wishEl.href = `https://wa.me/919XXXXXXXXX?text=${wishMsg}`;
 
-  updateGuestCountDisplay(list);
+  // WhatsApp SHARE link — share invite with others
+  const shareMsg = encodeURIComponent(
+    `🎊 You're invited!\n\n` +
+    `Puviarasu ❤️ Boomika Wedding\n` +
+    `📅 Reception: 06 June 2026 (Sat) 6:00 PM\n` +
+    `💍 Wedding: 07 June 2026 (Sun) 6:00 AM\n` +
+    `📍 Pagavan Sri Sathya Sai Baba Marriage Hall, Tiruttani\n\n` +
+    `Open Invitation 👉 https://PuviBN.github.io/Invitation`
+  );
+  const shareEl = document.getElementById('wa-share-link');
+  if(shareEl) shareEl.href = `https://wa.me/?text=${shareMsg}`;
 }
 
-// ── Load guest count on page ready ──
+// ── Check if already submitted on load ──
 async function loadGuestCount(){
-  // If already submitted locally, show success immediately
   const local = getLocalRSVP();
   if(local){
-    const { list } = await fetchAttendees();
     document.getElementById('rsvp-form-state').style.display='none';
-    document.getElementById('rsvp-success').style.display='block';
-    document.getElementById('success-name').textContent = `🌟 ${local.name}`;
-    const msg = encodeURIComponent(
-      `I just confirmed my attendance at Puviarasu ❤️ Boomika's wedding!\n` +
-      `📅 06 & 07 June 2026 | Tiruttani 🎊\n` +
-      `You should come too! 👉 https://${GH_OWNER}.github.io/${GH_REPO}`
-    );
-    document.getElementById('wa-share-link').href = `https://wa.me/?text=${msg}`;
-    updateGuestCountDisplay(list);
-    return;
+    showRSVPSuccess(local.name, []);
   }
-  // Otherwise just show count
-  const { list } = await fetchAttendees();
-  updateGuestCountDisplay(list);
 }
 
 // ── Trigger load when RSVP section is visible ──
